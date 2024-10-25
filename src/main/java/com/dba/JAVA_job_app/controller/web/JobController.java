@@ -1,4 +1,4 @@
-package com.dba.JAVA_job_app;
+package com.dba.JAVA_job_app.controller.web;
 
 import java.util.List;
 
