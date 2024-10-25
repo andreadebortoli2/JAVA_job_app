@@ -3,7 +3,7 @@
         <%@ page isELIgnored="false" %>
             <%@ page import="java.util.List" %>
                 <%@ page import="com.dba.JAVA_job_app.model.JobPost" %>
-                    <%@ page import="com.dba.JAVA_job_app.repo.JobRepo" %>
+                    <%@ page import="com.dba.JAVA_job_app.repository.JobRepository" %>
                         <!DOCTYPE html>
                         <html lang="en">
 
