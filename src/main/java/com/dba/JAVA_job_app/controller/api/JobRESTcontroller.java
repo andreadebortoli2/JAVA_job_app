@@ -45,6 +45,12 @@ public class JobRESTcontroller {
         }
     }
 
+    @GetMapping("jobPost/{postId}/image")
+    public ResponseEntity<byte[]> getImageByPostIdAPI(@PathVariable int postId) {
+        JobPost job = service.getJob(postId);
+        return new ResponseEntity<>(job.getImageData(), HttpStatus.OK);
+    }
+
     @GetMapping("jobPosts/keyword/{keyword}")
     public ResponseEntity<List<JobPost>> searchByKeywordAPI(@PathVariable String keyword) {
         List<JobPost> jobs = service.searchByKeyword(keyword);
