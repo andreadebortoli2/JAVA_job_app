@@ -86,9 +86,14 @@ public class JobRESTcontroller {
     }
 
     @DeleteMapping("jobPost/{postId}")
-    public String deleteJobAPI(@PathVariable int postId) {
-        service.deleteJob(postId);
-        return "Deleted";
+    public ResponseEntity<String> deleteJobAPI(@PathVariable int postId) {
+        JobPost job = service.getJob(postId);
+        if (job != null) {
+            service.deleteJob(postId);
+            return new ResponseEntity<>("Deleted", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("load")
