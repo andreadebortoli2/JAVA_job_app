@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -38,7 +37,7 @@ public class JobRESTcontroller {
                                                                          // variable ex: @PathVariable("postId")
 
         JobPost job = service.getJob(postId);
-        if (job != null) {
+        if (job.getPostId() > 0) {
             return new ResponseEntity<>(job, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -48,7 +47,11 @@ public class JobRESTcontroller {
     @GetMapping("jobPost/{postId}/image")
     public ResponseEntity<byte[]> getImageByPostIdAPI(@PathVariable int postId) {
         JobPost job = service.getJob(postId);
-        return new ResponseEntity<>(job.getImageData(), HttpStatus.OK);
+        if (job.getPostId() > 0) {
+            return new ResponseEntity<>(job.getImageData(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("jobPosts/keyword/{keyword}")
@@ -65,7 +68,7 @@ public class JobRESTcontroller {
     public ResponseEntity<?> addJobAPI(@RequestPart JobPost jobPost, @RequestPart MultipartFile imageFile) {
         JobPost addedJob;
         try {
-            addedJob = service.addJob(jobPost, imageFile);
+            addedJob = service.addOrUpdateJob(jobPost, imageFile);
             return new ResponseEntity<>(addedJob, HttpStatus.CREATED);
         } catch (IOException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -73,9 +76,13 @@ public class JobRESTcontroller {
     }
 
     @PutMapping("jobPost")
-    public ResponseEntity<JobPost> updateJobAPI(@RequestBody JobPost jobPost) {
-        service.updateJob(jobPost);
-        return new ResponseEntity<>(service.getJob(jobPost.getPostId()), HttpStatus.OK);
+    public ResponseEntity<String> updateJobAPI(@RequestPart JobPost jobPost, @RequestPart MultipartFile imageFile) {
+        try {
+            service.addOrUpdateJob(jobPost, imageFile);
+            return new ResponseEntity<>("Updated", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("jobPost/{postId}")

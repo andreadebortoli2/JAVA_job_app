@@ -33,17 +33,12 @@ public class JobService {
                 return repository.findByPostProfileContainingOrPostDescContaining(keyword, keyword);
         }
 
-        public JobPost addJob(JobPost jobPost, MultipartFile image) throws IOException {
+        public JobPost addOrUpdateJob(JobPost jobPost, MultipartFile image) throws IOException {
                 // repository.addJob(JobPost); // edit with JPA
                 jobPost.setImageName(image.getOriginalFilename());
                 jobPost.setImageType(image.getContentType());
                 jobPost.setImageData(image.getBytes());
                 return repository.save(jobPost);
-        }
-
-        public void updateJob(JobPost jobPost) {
-                // repository.updateJob(jobPost); // edit with JPA
-                repository.save(jobPost);
         }
 
         public void deleteJob(int postId) {
