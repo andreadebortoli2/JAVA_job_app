@@ -3,6 +3,7 @@ package com.dba.JAVA_job_app.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.dba.JAVA_job_app.model.JobPost;
@@ -11,7 +12,12 @@ import com.dba.JAVA_job_app.model.JobPost;
 @Repository
 public interface JobRepository extends JpaRepository<JobPost, Integer> {
 
-    List<JobPost> findByPostProfileContainingOrPostDescContaining(String postProfile, String postDesc);
+    // List<JobPost> findByPostProfileContainingOrPostDescContaining(String
+    // postProfile, String postDesc);
+    @Query("SELECT j FROM JobPost j WHERE " +
+            "LOWER(j.postProfile) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(j.postDesc) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    List<JobPost> searchJobPost(String keyword);
 }
 
 // with a mocking db

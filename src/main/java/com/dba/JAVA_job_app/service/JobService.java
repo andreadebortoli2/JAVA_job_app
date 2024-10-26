@@ -30,7 +30,9 @@ public class JobService {
         }
 
         public List<JobPost> searchByKeyword(String keyword) {
-                return repository.findByPostProfileContainingOrPostDescContaining(keyword, keyword);
+                // return repository.findByPostProfileContainingOrPostDescContaining(keyword,
+                // keyword);
+                return repository.searchJobPost(keyword);
         }
 
         public JobPost addOrUpdateJob(JobPost jobPost, MultipartFile image) throws IOException {
