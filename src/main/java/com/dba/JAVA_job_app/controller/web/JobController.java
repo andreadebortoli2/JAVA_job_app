@@ -29,8 +29,9 @@ public class JobController {
 
     @PostMapping("handleForm")
     public String handleForm(JobPost jobPost) {
-        service.addJob(jobPost);
-        return "success";
+        // service.addJob(jobPost);
+        // return "success";
+        return "not working";
     }
 
     @GetMapping("viewalljobs")
