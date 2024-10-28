@@ -6,4 +6,7 @@ To learn how to build a web app with Spring Boot implementing:
 - routing
 - REST api
 - database
-- 
+- AOP:
+  - Logging
+  - Monitoring
+  - Validation
