@@ -10,3 +10,12 @@ To learn how to build a web app with Spring Boot implementing:
   - Logging
   - Monitoring
   - Validation
+- security
+  - same site strict
+  - security config stateless session
+  - users from database
+    - authentication provider
+    - user details service
+    - principals
+  - user registration
+    - BCrypt encoding

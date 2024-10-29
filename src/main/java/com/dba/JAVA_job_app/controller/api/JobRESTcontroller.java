@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-// @CrossOrigin // disable crossorigin in dev mode
+// @CrossOrigin // disable crossorigin
 public class JobRESTcontroller {
 
     @Autowired
